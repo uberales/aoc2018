@@ -60,7 +60,8 @@ for i in range(1, total_n + 1):
         next_state[j] = Next(state, j, rules)
     state, offset = Wrap(next_state, offset)
     sum_n = SumPots(state, offset)
-    print(i, sum_n, sum_n / i)
+    if i % 100000 == 0:    
+        print(i, sum_n, sum_n / i)
 #    print(''.join([' '] * offset) + "0")
 #    print(''.join(state))
 sum_n = SumPots(state, offset)
