@@ -18,14 +18,15 @@ def CellPower(x, y, sn):
     pl -= 5
     return pl
 
-for x in range(n_x):
-    for y in range(n_y):
+for x in range(n_g):
+    for y in range(n_g):
         grid[y][x] = CellPower(x, y, serial_number)
         pass
 
 max_pl = 0
 max_x = 0
 max_y = 0
+max_s = 0
 for s in range(n_g):
     for x in range(n_g-s+1):
         for y in range(n_g-s+1):
@@ -35,8 +36,9 @@ for s in range(n_g):
                 max_pl = pl
                 max_x = x
                 max_y = y
+                max_s = s
     
-                print(max_x, max_y, s, max_pl)
+                print(max_x, max_y, max_s, max_pl)
 
-print('result', max_x, max_y, max_pl)
+print('result', max_x, max_y, max_s, max_pl)
         
