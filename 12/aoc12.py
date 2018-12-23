@@ -6,6 +6,9 @@ data = ''
 with open('input.txt') as f:
     data = f.read().strip()
 
+total_n = 50000000000
+#total_n = 20
+
 pattern = 'initial state: ([\#\.]*)'
 matches = re.findall(pattern, data)
 
@@ -43,8 +46,6 @@ state, offset = Wrap(state, 0)
 print(''.join([' '] * offset) + "0")
 print(''.join(state))
 
-total_n = 50000000000
-#total_n = 20
 
 def SumPots(state, offset):
     sum_n = 0
@@ -54,6 +55,9 @@ def SumPots(state, offset):
             sum_n += pn
     return sum_n
 
+# In higher iterations, sum_n % 1000 == 304, so it is easy to guess the answer.
+# This loop will take ages when run.
+
 for i in range(1, total_n + 1):
     next_state = list(state)
     for j in range(2,len(next_state)-2):
@@ -61,8 +65,8 @@ for i in range(1, total_n + 1):
     state, offset = Wrap(next_state, offset)
     sum_n = SumPots(state, offset)
     if i % 100000 == 0:    
-        print(i, sum_n, sum_n / i)
-#    print(''.join([' '] * offset) + "0")
-#    print(''.join(state))
+        print(i, sum_n, (sum_n - 304) / i)
+
+
 sum_n = SumPots(state, offset)
 print(sum_n)
