@@ -25,38 +25,43 @@ def Next(state, i, rules):
         n = rules[surr]
     return n
 
-def Wrap(state):
-    
-    wrap = list('..')
+def Wrap(state, offset):
+    offset += 5
+    wrap = list('.....')
     wrap.extend(list(state))
-    wrap.extend(list('..'))
-    return wrap
+    wrap.extend(list('.....'))
+    while wrap[4] == '.':
+        wrap.pop(0)
+        offset -= 1
+    while wrap[-5] == '.':
+        wrap.pop()
+    return wrap, offset
 
 state = list(init)
 sl = len(state)
-state = Wrap(state)
-offset = 2
+state, offset = Wrap(state, 0)
 print(''.join([' '] * offset) + "0")
 print(''.join(state))
 
 total_n = 50000000000
+#total_n = 20
+
+def SumPots(state, offset):
+    sum_n = 0
+    for i in range(len(state)):
+        pn = i - offset
+        if state[i] == "#":
+            sum_n += pn
+    return sum_n
 
 for i in range(total_n):
-    offset += 2 
     next_state = list(state)
-    
     for j in range(2,len(next_state)-2):
         next_state[j] = Next(state, j, rules)
-    state = Wrap(next_state)
-    if i % 10000 == 0:
-        print(i)
+    state, offset = Wrap(next_state, offset)
+    sum_n = SumPots(state, offset)
+    print(i, sum_n)
 #    print(''.join([' '] * offset) + "0")
 #    print(''.join(state))
-
-sum_n = 0
-for i in range(len(state)):
-    pn = i - offset
-    if state[i] == "#":
-        sum_n += pn
-
+sum_n = SumPots(state, offset)
 print(sum_n)
