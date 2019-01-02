@@ -50,7 +50,7 @@ while True:
     elf_a = (elf_a + d_a) % l
     elf_b = (elf_b + d_b) % l
     
-    if len(recipes) >= num_recipes + 10 and not(task_a):
+    if l >= num_recipes + 10 and not(task_a):
         task_a = True
         r_str = ''.join([str(r) for r in recipes[num_recipes:num_recipes+10]])
         print('Task A:', r_str)
