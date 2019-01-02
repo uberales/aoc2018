@@ -183,7 +183,7 @@ while True:
     
         if finished:
             if not(complete_round):
-                print('Finished in incomplete round')
+#                print('Finished in incomplete round')
                 round_no -= 1   
             break
     
@@ -202,12 +202,10 @@ while True:
     for u in units:
         remaining_hp += u["hp"]
     
-    print()
-    print(round_no)
-    print(remaining_hp)
     
     outcome[attack_power] = (units[0]["type"], round_no * remaining_hp)
-    print(attack_power, outcome[attack_power])
+    print("Outcome:", attack_power, outcome[attack_power])
+    print()
     if units[0]["type"] == "E":
         elves_alive = True
         for u in dead:
@@ -216,3 +214,6 @@ while True:
         if elves_alive:
             break
     attack_power += 1
+
+print('Task 1:', outcome[3])
+print('Task 2:', outcome[attack_power])
