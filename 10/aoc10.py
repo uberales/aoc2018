@@ -21,19 +21,17 @@ r = np.array(r_0)
 v = np.array(v)
 
 
-a_prev = -1
+d_y_prev = abs(np.max(r[:,1])-np.min(r[:,1]))
 c = 0
 while True:
     c += 1
     r = np.add(r, v)
-    d_x = abs(np.max(r[:,0])-np.min(r[:,0]))
     d_y = abs(np.max(r[:,1])-np.min(r[:,1]))
-    a = d_x * d_y
-    print(c, d_x, d_y, a)
     
-    if (a_prev > 0 and a_prev < a) or d_y <= 9:
+    if d_y >= d_y_prev:
+        r = np.add(r, -v)
         break
-    a_prev = a
+    d_y_prev = d_y
     
 f = plt.figure()
 plt.plot(r[:,0], -r[:,1], 'o')
